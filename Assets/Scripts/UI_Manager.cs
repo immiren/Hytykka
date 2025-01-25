@@ -10,7 +10,7 @@ public class UI_Manager : MonoBehaviour
     public TextMeshProUGUI healthTextbox;
     public TextMeshProUGUI scoreTextbox;
     public TextMeshProUGUI timerTextbox;
-    private float score = 0;
+    private int score = 0;
     private float timer = 0;
     Player player;
     // Start is called before the first frame update

@@ -14,10 +14,13 @@ public class MosquitoScript : MonoBehaviour
     private float jitterFrequency; // Frequency of the jitter updates
     private float jitterIntensity; // Intensity of the erratic movement
     private Vector3 jitterOffset; // Stores the current jitter offset
+    public int score = 10;
+    UI_Manager ui;
 
     void Start()
 
     {
+        ui = GameObject.FindObjectOfType<UI_Manager>();
         // Sets Mosquito jitter values
         jitterFrequency = Random.Range(0.1f, 1f);
         jitterIntensity = Random.Range(0.1f, 1f);
@@ -116,5 +119,6 @@ public class MosquitoScript : MonoBehaviour
     {
         Debug.Log("Mosquito killed!");
         Destroy(this.gameObject);
+        ui.UpdateScore(score);
     }
 }

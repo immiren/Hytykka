@@ -372,4 +372,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bubble: {fileID: 4477870103619977486, guid: 804db4af5009972438de3ae6f37cbe66, type: 3}
   speed: 10
-  fireDelay: 0.1
+  fireDelay: 0.2
