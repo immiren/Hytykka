@@ -26,9 +26,10 @@ public class Projectile : MonoBehaviour
     {
         rb2d.velocity = Vector2.zero;
         //switch for mosquito death
-        if (collision.gameObject.GetComponent<Health>() != null)
+        if (collision.gameObject.GetComponent<MosquitoScript>() != null)
         {
-            collision.gameObject.GetComponent<Health>().TakeDamage(); //lol älä käytä viel
+            collision.gameObject.GetComponent<MosquitoScript>().TakeDamage(); //lol älä käytä viel
         }
+        Destroy(this.gameObject);
     }
 }

@@ -110,4 +110,10 @@ public class MosquitoScript : MonoBehaviour
             yield return new WaitForSeconds(jitterFrequency);
         }
     }
+
+    public void TakeDamage()
+    {
+        Debug.Log("Mosquito killed!");
+        Destroy(this.gameObject);
+    }
 }
