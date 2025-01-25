@@ -69,7 +69,8 @@ public class MosquitoScript : MonoBehaviour
         }
         else if (col.gameObject.CompareTag("Bubble"))
         {
-            Destroy(gameObject);
+            Debug.Log("Mosquito hit");
+            Destroy(this.gameObject);
         }
     }
 

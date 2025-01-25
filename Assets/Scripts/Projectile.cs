@@ -4,13 +4,23 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    public int speed = 1;
+    public int speed = 6;
     Rigidbody2D rb2d;
     // Start is called before the first frame update
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
-        rb2d.velocity = transform.up * speed;
+        SetVelocity();
+    }
+    public void SetVelocity()
+    {
+        Vector3 shootDirection;
+        shootDirection = Input.mousePosition;
+        shootDirection = Camera.main.ScreenToWorldPoint(shootDirection);
+        shootDirection = shootDirection-transform.position;
+        shootDirection.z = 0.0f;
+        shootDirection = Vector3.Normalize(shootDirection);
+        rb2d.velocity = new Vector2(shootDirection.x * speed, shootDirection.y * speed);
     }
 
     // Update is called once per frame

@@ -5,15 +5,20 @@ using UnityEngine;
 public class BubblegunController : MonoBehaviour
 {
     [SerializeField] GameObject bubble;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    GameObject bubbleInstance;
+    Projectile bubbleProjectile;
+    [SerializeField] int speed = 10; //changeable
+    private float nextShot = 0.15f; //changeable
+    [SerializeField] private float fireDelay = 0.1f; //changeable
 
-    // Update is called once per frame
-    void Update()
+    public void Fire()
     {
-        
+        if (Time.time > nextShot){
+            bubbleInstance = Instantiate(bubble, transform.position, transform.rotation) as GameObject; // vaiha rotation
+            bubbleProjectile = bubble.GetComponent<Projectile>();
+            bubbleProjectile.speed = speed;
+
+            nextShot = Time.time + fireDelay;
+        }        
     }
 }
