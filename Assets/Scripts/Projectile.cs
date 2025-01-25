@@ -11,6 +11,7 @@ public class Projectile : MonoBehaviour
     {
         rb2d = GetComponent<Rigidbody2D>();
         SetVelocity();
+        Destroy(this.gameObject, 3f);
     }
     public void SetVelocity()
     {
