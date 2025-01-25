@@ -10,7 +10,6 @@ public class UI_Manager : MonoBehaviour
     public TextMeshProUGUI healthTextbox;
     public TextMeshProUGUI scoreTextbox;
     public TextMeshProUGUI timerTextbox;
-    private float health = 100;
     private float score = 0;
     private float timer = 0;
     Player player;
@@ -28,7 +27,7 @@ public class UI_Manager : MonoBehaviour
         int seconds = Mathf.FloorToInt(timer - minutes * 60);
         healthTextbox.text = "Health: " + player.GetComponent<Health>().currentHealth;
         scoreTextbox.text = "Score: " + score;
-        timerTextbox.text = string.Format("{0:0}:{1:00}", minutes, seconds); ;
+        timerTextbox.text = string.Format("{0:0}:{1:00}", minutes, seconds);
     }
 
     public void UpdateScore(int newScore){ // called in enemy scripts
