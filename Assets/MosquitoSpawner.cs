@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.PackageManager;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
+using static UnityEngine.UIElements.UxmlAttributeDescription;
 
 public class MosquitoSpawner : MonoBehaviour
 {
@@ -24,7 +26,9 @@ public class MosquitoSpawner : MonoBehaviour
         float height = 2f * gameCamera.orthographicSize;
         float width = height * gameCamera.aspect;
 
-
+        
+        if (Input.GetKey("space"))
+            spawnMosquito();
     }
 
     void increaseMultiplier()
@@ -36,7 +40,10 @@ public class MosquitoSpawner : MonoBehaviour
     {
         float height = 2f * gameCamera.orthographicSize;
         float width = height * gameCamera.aspect;
-        Instantiate(Mosquito, new Vector2(x: gameCamera.transform.position.x + Random.Range(-width, width), y: gameCamera.transform.position.y + Random.Range(height, -height)), Quaternion.identity);
+        Vector2 vPos = gameCamera.ViewportToWorldPoint(new Vector2(1.1f, 0.5f));
+        Vector2 vPos2 = new Vector2(x: gameCamera.transform.position.x + Random.Range(-width, width), y: gameCamera.transform.position.y + Random.Range(height, -height));
+        Instantiate(Mosquito, vPos2, Quaternion.identity);
         mosquitoCount++;
     }
 }
+
