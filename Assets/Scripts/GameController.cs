@@ -7,6 +7,7 @@ public class GameController : MonoBehaviour
     private float spawnMultiplier = 0.01f;
     public GameObject Mosquito; // Reference to the Mosquito GameObject
     private Camera gameCamera; // Reference to the main camera
+    private GameObject player; // Refrence to player
     private int mosquitoCount; // Keeps track of the number of mosquitos
     private float defaultSpawnRate = 5.0f;
     private float minDefaultSpawnRate = 0.5f;
