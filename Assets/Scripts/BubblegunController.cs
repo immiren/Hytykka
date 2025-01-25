@@ -8,7 +8,7 @@ public class BubblegunController : MonoBehaviour
     GameObject bubbleInstance;
     Projectile bubbleProjectile;
     [SerializeField] int speed = 10; //changeable
-    private float nextShot = 0.15f; //changeable
+    private float nextShot = 0.15f; 
     [SerializeField] private float fireDelay = 0.1f; //changeable
 
     public void Fire()
