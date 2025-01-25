@@ -6,7 +6,6 @@ public class MosquitoSpawner : MonoBehaviour
 {
     public GameObject Mosquito; // Reference to the Mosquito GameObject
     private Camera gameCamera; // Reference to the main camera
-    private float multiplier; // Multiplies the rate of mosquito spawns
     private int mosquitoCount; // Keeps track of the number of mosquitos
 
     void Start()
@@ -21,11 +20,6 @@ public class MosquitoSpawner : MonoBehaviour
     {
         if (Input.GetKey("space"))
             spawnMosquito();
-    }
-
-    void increaseMultiplier()
-    {
-        multiplier += 1f;
     }
 
     void spawnMosquito()
