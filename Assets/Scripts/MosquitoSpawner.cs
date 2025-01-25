@@ -16,12 +16,6 @@ public class MosquitoSpawner : MonoBehaviour
         spawnMosquito();
     }
 
-    void Update()
-    {
-        if (Input.GetKey("space"))
-            spawnMosquito();
-    }
-
     void spawnMosquito()
     {
         float height = 2f * gameCamera.orthographicSize; // Camera height in world units

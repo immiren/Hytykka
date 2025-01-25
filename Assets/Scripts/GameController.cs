@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameController : MonoBehaviour
 {
     private float spawnMultiplier = 0.01f;
+    public GameObject MosquitoContainer; // Refrence to container for mosquito gameobjects
     public GameObject Mosquito; // Reference to the Mosquito GameObject
     private Camera gameCamera; // Reference to the main camera
     private GameObject player; // Refrence to player

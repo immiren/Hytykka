@@ -23,9 +23,10 @@ public class UI_Manager : MonoBehaviour
     void Update()
     {
         timer += Time.deltaTime;
-        timer = Mathf.FloorToInt(timer);
+        int minutes = Mathf.FloorToInt(timer / 60F);
+        int seconds = Mathf.FloorToInt(timer - minutes * 60);
         healthTextbox.text = "Health: " + health;
         scoreTextbox.text = "Score: " + score;
-        timerTextbox.text = "Time: " + timer;
+        timerTextbox.text = string.Format("{0:0}:{1:00}", minutes, seconds); ;
     }
 }
