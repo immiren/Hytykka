@@ -6,14 +6,21 @@ public class MosquitoScript : MonoBehaviour
 {
     private Transform target; // Reference to the target's Transform
     public float speed = 2f; // Movement speed
-    private float minDistance = 1f; // Minimum distance to stop moving
+    public float minDistance = 1f; // Minimum distance to stop moving
     private float range; // Distance between the mosquito and the target
     private bool isFlyingAway = false; // Whether the mosquito is flying away
     public float flyAwayDuration = 3f; // How long the mosquito flies away
     public float flyAwayDistance = 5f; // Distance to fly away
+    private float jitterFrequency; // Frequency of the jitter updates
+    private float jitterIntensity; // Intensity of the erratic movement
+    private Vector3 jitterOffset; // Stores the current jitter offset
 
     void Start()
+
     {
+        // Sets Mosquito jitter values
+        jitterFrequency = Random.Range(0.1f, 1f);
+        jitterIntensity = Random.Range(0.1f, 1f);
         // Find the GameObject with the tag "Player" and set it as the target
         GameObject player = GameObject.FindWithTag("Player");
 
@@ -25,6 +32,9 @@ public class MosquitoScript : MonoBehaviour
         {
             Debug.LogError("No GameObject with the tag 'Player' found in the scene!");
         }
+
+        // Start applying random jitter
+        StartCoroutine(UpdateJitter());
     }
 
     void Update()
@@ -37,8 +47,14 @@ public class MosquitoScript : MonoBehaviour
 
         if (range > minDistance)
         {
-            // Move towards the target
-            transform.position = Vector2.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
+            // Calculate the direction to the target
+            Vector3 directionToTarget = (target.position - transform.position).normalized;
+
+            // Add jitter to the movement
+            Vector3 erraticMovement = directionToTarget + jitterOffset;
+
+            // Move towards the player with jitter
+            transform.position += erraticMovement * speed * Time.deltaTime;
         }
     }
 
@@ -46,10 +62,9 @@ public class MosquitoScript : MonoBehaviour
     {
         // Check if the mosquito hits the player
         if (col.gameObject.CompareTag("Player"))
-        { 
+        {
             Debug.Log("Hit player");
             col.gameObject.GetComponent<Health>().TakeDamage();
-            Debug.Log("Mosquito hit the player!");
             StartCoroutine(FlyAway());
         }
     }
@@ -76,4 +91,19 @@ public class MosquitoScript : MonoBehaviour
         isFlyingAway = false;
     }
 
+    private IEnumerator UpdateJitter()
+    {
+        while (true)
+        {
+            // Generate a random jitter offset
+            jitterOffset = new Vector3(
+                Random.Range(-jitterIntensity, jitterIntensity),
+                Random.Range(-jitterIntensity, jitterIntensity),
+                0
+            );
+
+            // Wait for the next jitter update
+            yield return new WaitForSeconds(jitterFrequency);
+        }
+    }
 }
