@@ -4,13 +4,16 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
-    private float spawnMultiplier = 1.0f;
+    private float spawnMultiplier = 0.01f;
     public GameObject Mosquito; // Reference to the Mosquito GameObject
     private Camera gameCamera; // Reference to the main camera
     private int mosquitoCount; // Keeps track of the number of mosquitos
-    private float secondsBetweenSpawn = 10.0f;
     private float defaultSpawnRate = 5.0f;
+    private float minDefaultSpawnRate = 0.5f;
+    private float secondsBetweenSpawn = 10.0f;
+    private float currentSpawnRate;
     private float elapsedTime = 0.0f;
+    private float totalGameTime = 0.0f;
 
     void Start()
     {
@@ -22,9 +25,11 @@ public class GameController : MonoBehaviour
 
     void Update()
     {
-
         elapsedTime += Time.deltaTime;
-        if (elapsedTime > secondsBetweenSpawn)
+        totalGameTime += Time.deltaTime;
+        currentSpawnRate = defaultSpawnRate - ((totalGameTime) * spawnMultiplier);
+        currentSpawnRate = Mathf.Max(currentSpawnRate, minDefaultSpawnRate);
+        if (currentSpawnRate < elapsedTime)
         {
             float newTime = Random.Range(Mathf.Max(defaultSpawnRate, secondsBetweenSpawn - spawnMultiplier), Mathf.Min(defaultSpawnRate, secondsBetweenSpawn + spawnMultiplier));
             secondsBetweenSpawn = newTime;

@@ -223,7 +223,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 276128907}
-  - component: {fileID: 276128906}
   - component: {fileID: 276128908}
   m_Layer: 0
   m_Name: GameController
@@ -232,19 +231,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &276128906
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 276128905}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c63d309bcf2cd7d4e9d10995e0156feb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Mosquito: {fileID: 654584239}
 --- !u!4 &276128907
 Transform:
   m_ObjectHideFlags: 0
@@ -272,12 +258,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4396404d05626e4c83be6e2d35ef6a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Mosquito: {fileID: 0}
---- !u!1 &654584239 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1584801169491170363, guid: 6652a93c376489946beb1393723c4b76, type: 3}
-  m_PrefabInstance: {fileID: 7764294890955363020}
-  m_PrefabAsset: {fileID: 0}
+  Mosquito: {fileID: 1584801169491170363, guid: 6652a93c376489946beb1393723c4b76, type: 3}
 --- !u!1 &1973486267
 GameObject:
   m_ObjectHideFlags: 0
