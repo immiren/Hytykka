@@ -1,32 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.PackageManager;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
-using static UnityEngine.UIElements.UxmlAttributeDescription;
 
 public class MosquitoSpawner : MonoBehaviour
 {
-    public GameObject Mosquito; // Refernce to Mosquito GameObject
-    private Camera gameCamera; // Refrence to main camera   
-    private float multiplier; // Multiplies the rate of Mosquito spawns
-    private int mosquitoCount; // Keeps track of number of mosquitos
-    // Start is called before the first frame update
+    public GameObject Mosquito; // Reference to the Mosquito GameObject
+    private Camera gameCamera; // Reference to the main camera
+    private float multiplier; // Multiplies the rate of mosquito spawns
+    private int mosquitoCount; // Keeps track of the number of mosquitos
+
     void Start()
     {
-        mosquitoCount = 0; // Resets Count
-        gameCamera = Camera.main; // Assigns camera
-        Mosquito = GameObject.FindGameObjectWithTag("Mosquito");
+        mosquitoCount = 0; // Reset count
+        gameCamera = Camera.main; // Assign the main camera
+        Mosquito = GameObject.FindGameObjectWithTag("Mosquito"); // Find the mosquito prefab by tag
         spawnMosquito();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        float height = 2f * gameCamera.orthographicSize;
-        float width = height * gameCamera.aspect;
-
-        
         if (Input.GetKey("space"))
             spawnMosquito();
     }
@@ -38,12 +30,47 @@ public class MosquitoSpawner : MonoBehaviour
 
     void spawnMosquito()
     {
-        float height = 2f * gameCamera.orthographicSize;
-        float width = height * gameCamera.aspect;
-        Vector2 vPos = gameCamera.ViewportToWorldPoint(new Vector2(1.1f, 0.5f));
-        Vector2 vPos2 = new Vector2(x: gameCamera.transform.position.x + Random.Range(-width, width), y: gameCamera.transform.position.y + Random.Range(height, -height));
-        Instantiate(Mosquito, vPos2, Quaternion.identity);
+        float height = 2f * gameCamera.orthographicSize; // Camera height in world units
+        float width = height * gameCamera.aspect; // Camera width in world units
+
+        // Determine spawn position outside the viewport
+        Vector2 spawnPosition = GetRandomSpawnPosition(width, height);
+
+        // Instantiate the mosquito at the spawn position
+        Instantiate(Mosquito, spawnPosition, Quaternion.identity);
         mosquitoCount++;
     }
-}
 
+    Vector2 GetRandomSpawnPosition(float width, float height)
+    {
+        // Randomly choose one of four sides of the viewport to spawn the mosquito
+        int side = Random.Range(0, 4);
+
+        Vector2 spawnPosition = Vector2.zero;
+
+        switch (side)
+        {
+            case 0: // Left side (just outside the left viewport edge)
+                spawnPosition = new Vector2(gameCamera.transform.position.x - width / 2 - 1f,
+                                            Random.Range(gameCamera.transform.position.y - height / 2, gameCamera.transform.position.y + height / 2));
+                break;
+
+            case 1: // Right side (just outside the right viewport edge)
+                spawnPosition = new Vector2(gameCamera.transform.position.x + width / 2 + 1f,
+                                            Random.Range(gameCamera.transform.position.y - height / 2, gameCamera.transform.position.y + height / 2));
+                break;
+
+            case 2: // Bottom side (just outside the bottom viewport edge)
+                spawnPosition = new Vector2(Random.Range(gameCamera.transform.position.x - width / 2, gameCamera.transform.position.x + width / 2),
+                                            gameCamera.transform.position.y - height / 2 - 1f);
+                break;
+
+            case 3: // Top side (just outside the top viewport edge)
+                spawnPosition = new Vector2(Random.Range(gameCamera.transform.position.x - width / 2, gameCamera.transform.position.x + width / 2),
+                                            gameCamera.transform.position.y + height / 2 + 1f);
+                break;
+        }
+
+        return spawnPosition;
+    }
+}
