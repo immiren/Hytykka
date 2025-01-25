@@ -67,6 +67,10 @@ public class MosquitoScript : MonoBehaviour
             col.gameObject.GetComponent<Health>().TakeDamage();
             StartCoroutine(FlyAway());
         }
+        else if (col.gameObject.CompareTag("Bubble"))
+        {
+            Destroy(gameObject);
+        }
     }
 
     private IEnumerator FlyAway()
