@@ -73,4 +73,5 @@ public class MosquitoScript : MonoBehaviour
         // After flying away, re-enable chasing
         isFlyingAway = false;
     }
+
 }
