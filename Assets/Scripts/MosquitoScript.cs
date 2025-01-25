@@ -45,8 +45,10 @@ public class MosquitoScript : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         // Check if the mosquito hits the player
+        Debug.Log("Hit player");
         if (collision.CompareTag("Player"))
         {
+            collision.gameObject.GetComponent<Health>().TakeDamage();
             Debug.Log("Mosquito hit the player!");
             StartCoroutine(FlyAway());
         }
