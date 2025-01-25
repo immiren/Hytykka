@@ -46,7 +46,7 @@ public class MosquitoScript : MonoBehaviour
     {
         // Check if the mosquito hits the player
         if (col.gameObject.CompareTag("Player"))
-        {
+        { 
             Debug.Log("Hit player");
             col.gameObject.GetComponent<Health>().TakeDamage();
             Debug.Log("Mosquito hit the player!");
