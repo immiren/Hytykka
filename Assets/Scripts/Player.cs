@@ -20,7 +20,6 @@ public class Player : MonoBehaviour
         bc = GetComponentInChildren<BubblegunController>();
         rb2d = GetComponent<Rigidbody2D>();
         health = GetComponent<Health>();
-        bubblePreview.GetComponent<Collider>().enabled = false;
     }
 
     void Update()
@@ -34,6 +33,7 @@ public class Player : MonoBehaviour
             if (bubblePrefab != null)
             {
                 bubblePreview = Instantiate(bubblePrefab, transform.position, Quaternion.identity);
+                bubblePreview.GetComponent<CircleCollider2D>().enabled = false;
                 bubblePreview.GetComponentInChildren<SpriteRenderer>().color = halfOpaqueColor;
             }
         }
