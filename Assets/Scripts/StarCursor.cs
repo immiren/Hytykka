@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class StarCursor : MonoBehaviour
 {
+    float timer = 0.7f;//between 0.7 and 1.2
+    public float timerStep = 0.05f;
+    GameObject star;
+    bool isStarScalingUp;
+    public float maxSize;
+    public float minSize;
     // Start is called before the first frame update
     void Start()
     {
@@ -13,6 +19,21 @@ public class StarCursor : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        this.transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        //position
+        Vector3 mouseLocation = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mouseLocation.z = 2;
+        
+        //rotation
+        transform.position = mouseLocation;
+        transform.Rotate(0,0,1);
+
+        //scale
+        if(isStarScalingUp){timer += timerStep;}
+        else{timer -= timerStep;}
+
+        if(timer <=minSize){isStarScalingUp = true;}
+        else if(timer >= maxSize){isStarScalingUp = false;}
+        
+        transform.localScale = new Vector3(timer, timer, timer);
     }
 }
