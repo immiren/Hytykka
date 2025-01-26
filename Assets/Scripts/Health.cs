@@ -28,6 +28,7 @@ public class Health : MonoBehaviour
         Debug.Log("Health: " + currentHealth);
         if(currentHealth <= 0)
         {
+            currentHealth = 0;
             Death();
         }
     }
@@ -35,14 +36,5 @@ public class Health : MonoBehaviour
     void Death(){
             rb2d.simulated = false; 
             Debug.Log("Dead :P");
-    }
-
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {   
-            //enable 4 testing
-            //TakeDamage();
-        }
     }
 }
