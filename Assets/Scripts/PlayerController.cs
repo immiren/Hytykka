@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     public float speed;
     private Rigidbody2D rb2d;
-
+    public Animation walkAnimation;
 
     // Start is called before the first frame update
     void Start()
@@ -21,5 +21,13 @@ public class PlayerController : MonoBehaviour
         float moveVertical = Input.GetAxis("Vertical");
 
         rb2d.velocity = new Vector3(moveHorizontal* speed, moveVertical*speed);
+        if (transform.hasChanged)
+        {
+            walkAnimation.Play();
+        }
+        else
+        {
+            walkAnimation.Stop();
+        }
     }
 }
