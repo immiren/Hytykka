@@ -2228,7 +2228,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4733556445642375273, guid: 1b27825393ddef6459adbdd23049bf7e, type: 3}
       propertyPath: timerStep
-      value: 0.0005
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4974253195849663786, guid: 1b27825393ddef6459adbdd23049bf7e, type: 3}
       propertyPath: m_SortingOrder

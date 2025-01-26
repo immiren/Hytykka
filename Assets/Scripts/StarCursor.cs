@@ -22,10 +22,7 @@ public class StarCursor : MonoBehaviour
         //position
         Vector3 mouseLocation = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mouseLocation.z = 2;
-        
-        //rotation
         transform.position = mouseLocation;
-        transform.Rotate(0,0,1);
 
         //scale
         if(isStarScalingUp){timer += timerStep;}
