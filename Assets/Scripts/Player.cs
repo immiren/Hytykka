@@ -20,6 +20,7 @@ public class Player : MonoBehaviour
         bc = GetComponentInChildren<BubblegunController>();
         rb2d = GetComponent<Rigidbody2D>();
         health = GetComponent<Health>();
+        bubblePreview.GetComponent<Collider>().enabled = false;
     }
 
     void Update()
