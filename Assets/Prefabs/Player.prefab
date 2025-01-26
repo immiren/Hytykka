@@ -326,6 +326,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7bbaef23e7aad543b7a28795950a30d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bubblePrefab: {fileID: 4477870103619977486, guid: 804db4af5009972438de3ae6f37cbe66, type: 3}
+  halfOpaqueColor: {r: 176, g: 223, b: 255, a: 0.5}
+  mediumChargeTime: 0.5
+  largeChargetime: 1
 --- !u!1 &3464133047264975431
 GameObject:
   m_ObjectHideFlags: 0

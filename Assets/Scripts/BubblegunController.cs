@@ -14,14 +14,14 @@ public class BubblegunController : MonoBehaviour
 
         Projectile bubbleProjectile = bubbleInstance.GetComponent<Projectile>();
 
-        if (chargeTime < 0.5f) // Small bubble
+        if (chargeTime < 0.75f) // Small bubble
         {
             bubbleInstance.transform.localScale = Vector3.one * 0.5f; // Half size
             bubbleProjectile.speed = baseSpeed * 0.5f; // Half speed
             bubbleProjectile.lifespan = 1f; // Short lifespan
             bubbleProjectile.isMultiHit = false; // Single hit
         }
-        else if (chargeTime < 1.0f) // Medium bubble
+        else if (chargeTime < 1.5f) // Medium bubble
         {
             bubbleInstance.transform.localScale = Vector3.one; // Normal size
             bubbleProjectile.speed = baseSpeed; // Normal speed
