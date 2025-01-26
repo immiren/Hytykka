@@ -190,6 +190,7 @@ GameObject:
   - component: {fileID: 1269494880948512504}
   - component: {fileID: 4556748447024468850}
   - component: {fileID: 528410051883875741}
+  - component: {fileID: 100947578542776121}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -228,6 +229,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
+  walkAnimation: {fileID: 100947578542776121}
 --- !u!50 &7421047740123505238
 Rigidbody2D:
   serializedVersion: 4
@@ -330,6 +332,21 @@ MonoBehaviour:
   halfOpaqueColor: {r: 176, g: 223, b: 255, a: 0.5}
   mediumChargeTime: 0.5
   largeChargetime: 1
+--- !u!111 &100947578542776121
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2362077038647909834}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 0}
+  m_Animations: []
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &3464133047264975431
 GameObject:
   m_ObjectHideFlags: 0
