@@ -4,21 +4,36 @@ using UnityEngine;
 
 public class BubblegunController : MonoBehaviour
 {
-    [SerializeField] GameObject bubble;
-    GameObject bubbleInstance;
-    Projectile bubbleProjectile;
-    [SerializeField] int speed = 10; //changeable
-    private float nextShot = 0.15f; 
-    [SerializeField] private float fireDelay = 0.1f; //changeable
+    [SerializeField] GameObject bubblePrefab;
+    [SerializeField] int baseSpeed = 10; // Base speed for medium bubbles
+    [SerializeField] float baseLifespan = 3f; // Base lifespan for medium bubbles
 
-    public void Fire()
+    public void Fire(float chargeTime)
     {
-        if (Time.time > nextShot){
-            bubbleInstance = Instantiate(bubble, transform.position, transform.rotation) as GameObject; // vaiha rotation
-            bubbleProjectile = bubble.GetComponent<Projectile>();
-            bubbleProjectile.speed = speed;
+        GameObject bubbleInstance = Instantiate(bubblePrefab, transform.position, transform.rotation);
 
-            nextShot = Time.time + fireDelay;
-        }        
+        Projectile bubbleProjectile = bubbleInstance.GetComponent<Projectile>();
+
+        if (chargeTime < 0.5f) // Small bubble
+        {
+            bubbleInstance.transform.localScale = Vector3.one * 0.5f; // Half size
+            bubbleProjectile.speed = baseSpeed * 0.5f; // Half speed
+            bubbleProjectile.lifespan = 1f; // Short lifespan
+            bubbleProjectile.isMultiHit = false; // Single hit
+        }
+        else if (chargeTime < 1.0f) // Medium bubble
+        {
+            bubbleInstance.transform.localScale = Vector3.one; // Normal size
+            bubbleProjectile.speed = baseSpeed; // Normal speed
+            bubbleProjectile.lifespan = baseLifespan; // Normal lifespan
+            bubbleProjectile.isMultiHit = false; // Single hit
+        }
+        else // Large bubble
+        {
+            bubbleInstance.transform.localScale = Vector3.one * 2f; // Double size
+            bubbleProjectile.speed = baseSpeed * 0.5f; // Same speed as small bubble
+            bubbleProjectile.lifespan = baseLifespan; // Same lifespan as medium bubble
+            bubbleProjectile.isMultiHit = true; // Can hit multiple enemies
+        }
     }
 }

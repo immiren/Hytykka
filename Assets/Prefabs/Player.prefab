@@ -370,6 +370,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4977c0d607074264b94aa5d8f03985b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bubble: {fileID: 4477870103619977486, guid: 804db4af5009972438de3ae6f37cbe66, type: 3}
-  speed: 10
-  fireDelay: 0.2
+  bubblePrefab: {fileID: 4477870103619977486, guid: 804db4af5009972438de3ae6f37cbe66, type: 3}
+  baseSpeed: 10
+  baseLifespan: 3

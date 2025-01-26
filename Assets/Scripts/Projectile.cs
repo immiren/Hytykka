@@ -4,17 +4,24 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    public float speed = 6f; // Initial speed of the projectile
+    public float speed = 6f; // Speed of the projectile
+    public float lifespan = 3f; // Lifespan of the projectile
+    public bool isMultiHit = false; // Whether the projectile can hit multiple enemies
     public float velocityDecayRate = 0.95f; // Factor by which velocity decreases per frame
     public float randomSpread = 0.1f; // Degree of randomness added to firing direction
-    private Rigidbody2D rb2d;
 
-    // Start is called before the first frame update
+    private Rigidbody2D rb2d;
+    private HashSet<GameObject> hitEnemies = new HashSet<GameObject>(); // Track enemies already hit
+
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
         SetVelocity();
-        Destroy(this.gameObject, 3f); // Destroy the projectile after 3 seconds
+
+        // Destroy the projectile after its lifespan
+        Destroy(this.gameObject, lifespan);
+
+        // Start gradually reducing velocity
         StartCoroutine(GraduallyReduceVelocity());
     }
 
@@ -47,16 +54,31 @@ public class Projectile : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        rb2d.velocity = Vector2.zero;
-
-        // Check for mosquito collision
+        // Check if the projectile hits an enemy (mosquito)
         if (collision.gameObject.GetComponent<MosquitoScript>() != null)
         {
-            collision.gameObject.GetComponent<MosquitoScript>().TakeDamage();
+            if (isMultiHit)
+            {
+                // If it's a multi-hit bubble, ensure we don't hit the same enemy twice
+                if (!hitEnemies.Contains(collision.gameObject))
+                {
+                    hitEnemies.Add(collision.gameObject);
+                    collision.gameObject.GetComponent<MosquitoScript>().TakeDamage();
+                }
+            }
+            else
+            {
+                // Single-hit behavior
+                collision.gameObject.GetComponent<MosquitoScript>().TakeDamage();
+                Destroy(this.gameObject); // Destroy bubble after hitting once
+            }
         }
 
-        // Destroy the projectile upon collision
-        Destroy(this.gameObject);
+        // Destroy the projectile upon collision if it's not multi-hit
+        if (!isMultiHit)
+        {
+            Destroy(this.gameObject);
+        }
     }
 
     private IEnumerator GraduallyReduceVelocity()
