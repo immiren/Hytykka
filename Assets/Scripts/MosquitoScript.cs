@@ -14,14 +14,13 @@ public class MosquitoScript : MonoBehaviour
     private float jitterFrequency; // Frequency of the jitter updates
     private float jitterIntensity; // Intensity of the erratic movement
     private Vector3 jitterOffset; // Stores the current jitter offset
-    public int score = 10;
+    public int score = 10; // Stores how much each mosquito killed scores
     UI_Manager ui;
 
     void Start()
-
     {
         ui = GameObject.FindObjectOfType<UI_Manager>();
-        // Sets Mosquito jitter values
+        // Sets mosquito jitter values
         jitterFrequency = Random.Range(0.1f, 1f);
         jitterIntensity = Random.Range(0.1f, 1f);
         // Find the GameObject with the tag "Player" and set it as the target
@@ -55,6 +54,9 @@ public class MosquitoScript : MonoBehaviour
 
             // Add jitter to the movement
             Vector3 erraticMovement = directionToTarget + jitterOffset;
+
+            // Rotate to face the player
+            RotateTowardsTarget(directionToTarget);
 
             // Move towards the player with jitter
             transform.position += erraticMovement * speed * Time.deltaTime;
@@ -120,5 +122,17 @@ public class MosquitoScript : MonoBehaviour
         Debug.Log("Mosquito killed!");
         Destroy(this.gameObject);
         ui.UpdateScore(score);
+    }
+
+    private void RotateTowardsTarget(Vector3 directionToTarget)
+    {
+        // Calculate the angle in degrees between the mosquito's forward vector and the direction to the player
+        float angle = Mathf.Atan2(directionToTarget.y, directionToTarget.x) * Mathf.Rad2Deg;
+
+        // Adjust the angle to account for the mosquito's default downward-facing orientation
+        angle += 90f; // Fix: Rotate the mosquito to face the correct direction
+
+        // Apply the rotation
+        transform.rotation = Quaternion.Euler(0, 0, angle);
     }
 }
