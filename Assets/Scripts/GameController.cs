@@ -9,17 +9,15 @@ public class GameController : MonoBehaviour
     [SerializeField] GameObject Mosquito; // Reference to the Mosquito GameObject
     private Camera gameCamera; // Reference to the main camera
     private GameObject player; // Refrence to player
-    private int mosquitoCount; // Keeps track of the number of mosquitos
-    private float defaultSpawnRate = 5.0f;
+    private float defaultSpawnRate = 4.0f;
     private float minDefaultSpawnRate = 0.5f;
-    private float secondsBetweenSpawn = 10.0f;
+    private float secondsBetweenSpawn = 5.0f;
     private float currentSpawnRate;
     private float elapsedTime = 0.0f;
     private float totalGameTime = 0.0f;
 
     void Start()
     {
-        mosquitoCount = 0; // Reset count
         gameCamera = Camera.main; // Assign the main camera
         spawnMosquito();
     }
@@ -50,7 +48,6 @@ public class GameController : MonoBehaviour
 
         // Instantiate the mosquito at the spawn position
         Instantiate(Mosquito, spawnPosition, Quaternion.identity);
-        mosquitoCount++;
     }
 
     Vector2 GetRandomSpawnPosition(float width, float height)

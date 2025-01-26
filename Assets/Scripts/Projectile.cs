@@ -79,6 +79,10 @@ public class Projectile : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+        if (isMultiHit)
+        {
+            isMultiHit = false;
+        }
     }
 
     private IEnumerator GraduallyReduceVelocity()
