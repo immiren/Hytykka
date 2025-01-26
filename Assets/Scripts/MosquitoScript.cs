@@ -5,7 +5,9 @@ using UnityEngine;
 public class MosquitoScript : MonoBehaviour
 {
     private Transform target; // Reference to the target's Transform
-    public float speed = 2f; // Movement speed
+    public float baseSpeed = 2f; // Base movement speed
+    public float speedVariation = 0.5f; // Variation in movement speed
+    private float speed; // Final randomized speed
     public float minDistance = 1f; // Minimum distance to stop moving
     private float range; // Distance between the mosquito and the target
     private bool isFlyingAway = false; // Whether the mosquito is flying away
@@ -14,6 +16,10 @@ public class MosquitoScript : MonoBehaviour
     private float jitterFrequency; // Frequency of the jitter updates
     private float jitterIntensity; // Intensity of the erratic movement
     private Vector3 jitterOffset; // Stores the current jitter offset
+    private float orbitRadius = 1f; // Radius of the orbit around the player
+    private float orbitSpeed; // Speed of the orbiting movement
+    private float orbitAngle = 0f; // Current angle in the orbit
+
     public int score = 10; // Stores how much each mosquito killed scores
     public float minScale = 0.8f; // Minimum scale for random size
     public float maxScale = 1.2f; // Maximum scale for random size
@@ -31,6 +37,13 @@ public class MosquitoScript : MonoBehaviour
         // Randomize mosquito size
         float randomScale = Random.Range(minScale, maxScale);
         transform.localScale = new Vector3(randomScale, randomScale, randomScale);
+
+        // Randomize mosquito speed
+        speed = baseSpeed + Random.Range(-speedVariation, speedVariation);
+
+        // Randomize mosquito orbit speed and radius
+        orbitSpeed = Random.Range(0.5f, 2f);
+        orbitRadius = Random.Range(0.5f, 1.5f);
 
         // Randomize mosquito audio pitch
         if (mosquitoAudio != null)
@@ -68,16 +81,24 @@ public class MosquitoScript : MonoBehaviour
 
         if (range > minDistance)
         {
+            // Orbit behavior
+            orbitAngle += orbitSpeed * Time.deltaTime;
+            Vector3 orbitOffset = new Vector3(
+                Mathf.Cos(orbitAngle) * orbitRadius,
+                Mathf.Sin(orbitAngle) * orbitRadius,
+                0
+            );
+
             // Calculate the direction to the target
             Vector3 directionToTarget = (target.position - transform.position).normalized;
 
-            // Add jitter to the movement
-            Vector3 erraticMovement = directionToTarget + jitterOffset;
+            // Add jitter and orbit to the movement
+            Vector3 erraticMovement = directionToTarget + jitterOffset + orbitOffset;
 
             // Rotate to face the player
             RotateTowardsTarget(directionToTarget);
 
-            // Move towards the player with jitter
+            // Move towards the player with jitter and orbit
             transform.position += erraticMovement * speed * Time.deltaTime;
         }
     }
@@ -89,7 +110,7 @@ public class MosquitoScript : MonoBehaviour
         {
             Debug.Log("Hit player");
             col.gameObject.GetComponent<Health>().TakeDamage();
-            StartCoroutine(FlyAway());
+            StartCoroutine(FlyAway(col.contacts[0].point));
         }
         else if (col.gameObject.CompareTag("Bubble"))
         {
@@ -98,13 +119,13 @@ public class MosquitoScript : MonoBehaviour
         }
     }
 
-    private IEnumerator FlyAway()
+    private IEnumerator FlyAway(Vector2 collisionPoint)
     {
         isFlyingAway = true;
 
-        // Fly in a random direction
-        Vector2 randomDirection = Random.insideUnitCircle.normalized * flyAwayDistance;
-        Vector3 targetPosition = transform.position + (Vector3)randomDirection;
+        // Calculate the direction opposite to the player
+        Vector3 awayDirection = (transform.position - (Vector3)collisionPoint).normalized * flyAwayDistance;
+        Vector3 targetPosition = transform.position + awayDirection;
 
         float elapsedTime = 0f;
         Vector3 startPosition = transform.position;
