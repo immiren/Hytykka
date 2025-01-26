@@ -33,7 +33,7 @@ public class Player : MonoBehaviour
             if (bubblePrefab != null)
             {
                 bubblePreview = Instantiate(bubblePrefab, transform.position, Quaternion.identity);
-                bubblePreview.GetComponent<SpriteRenderer>().color = halfOpaqueColor;
+                bubblePreview.GetComponentInChildren<SpriteRenderer>().color = halfOpaqueColor;
             }
         }
 
