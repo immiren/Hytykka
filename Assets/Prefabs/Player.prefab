@@ -229,6 +229,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
+  defaultSpeed: 0
   walkAnimation: {fileID: 100947578542776121}
 --- !u!50 &7421047740123505238
 Rigidbody2D:
@@ -341,8 +342,9 @@ Animation:
   m_GameObject: {fileID: 2362077038647909834}
   m_Enabled: 1
   serializedVersion: 3
-  m_Animation: {fileID: 0}
-  m_Animations: []
+  m_Animation: {fileID: 7400000, guid: 46426714b706641d6a705f5792ea9831, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 46426714b706641d6a705f5792ea9831, type: 2}
   m_WrapMode: 0
   m_PlayAutomatically: 0
   m_AnimatePhysics: 0

@@ -58,7 +58,10 @@ public class Player : MonoBehaviour
         // Release and fire the bubble when the mouse button is released
         if (Input.GetKeyUp(KeyCode.Mouse0) && chargingBubble && health.currentHealth > 0)
         {
-            bc.Fire(chargeTime); // Pass the charge time to the BubblegunController
+            Vector3 mousePosition = Camera.main.ScreenToWorldPoint((Input.mousePosition));
+            Vector3 direction = (mousePosition - transform.position).normalized;
+            Vector3 spawnPoint = transform.position + direction * 1f;
+            bc.Fire(chargeTime, spawnPoint); // Pass the charge time to the BubblegunController
             chargingBubble = false; // Reset charging state
             chargeTime = 0f; // Reset charge time
 

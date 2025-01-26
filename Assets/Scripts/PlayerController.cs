@@ -30,7 +30,7 @@ public class PlayerController : MonoBehaviour
             speed = defaultSpeed;
         }
         rb2d.velocity = new Vector3(moveHorizontal* speed, moveVertical*speed);
-        if (transform.hasChanged)
+        if ((Input.GetKeyDown(KeyCode.W)) || Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.A))
         {
             walkAnimation.Play();
         }

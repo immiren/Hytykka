@@ -8,9 +8,9 @@ public class BubblegunController : MonoBehaviour
     [SerializeField] int baseSpeed = 10; // Base speed for medium bubbles
     [SerializeField] float baseLifespan = 3f; // Base lifespan for medium bubbles
 
-    public void Fire(float chargeTime)
+    public void Fire(float chargeTime, Vector3 spawnPoint)
     {
-        GameObject bubbleInstance = Instantiate(bubblePrefab, transform.position, transform.rotation);
+        GameObject bubbleInstance = Instantiate(bubblePrefab, spawnPoint, transform.rotation);
 
         Projectile bubbleProjectile = bubbleInstance.GetComponent<Projectile>();
 
