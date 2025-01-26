@@ -15,14 +15,33 @@ public class MosquitoScript : MonoBehaviour
     private float jitterIntensity; // Intensity of the erratic movement
     private Vector3 jitterOffset; // Stores the current jitter offset
     public int score = 10; // Stores how much each mosquito killed scores
+    public float minScale = 0.8f; // Minimum scale for random size
+    public float maxScale = 1.2f; // Maximum scale for random size
+
+    public AudioSource mosquitoAudio; // Reference to the mosquito's AudioSource
+    public float minPitch = 0.8f; // Minimum pitch
+    public float maxPitch = 1.2f; // Maximum pitch
+
     UI_Manager ui;
 
     void Start()
     {
         ui = GameObject.FindObjectOfType<UI_Manager>();
+
+        // Randomize mosquito size
+        float randomScale = Random.Range(minScale, maxScale);
+        transform.localScale = new Vector3(randomScale, randomScale, randomScale);
+
+        // Randomize mosquito audio pitch
+        if (mosquitoAudio != null)
+        {
+            mosquitoAudio.pitch = Random.Range(minPitch, maxPitch);
+        }
+
         // Sets mosquito jitter values
         jitterFrequency = Random.Range(0.1f, 1f);
         jitterIntensity = Random.Range(0.1f, 1f);
+
         // Find the GameObject with the tag "Player" and set it as the target
         GameObject player = GameObject.FindWithTag("Player");
 
@@ -130,7 +149,7 @@ public class MosquitoScript : MonoBehaviour
         float angle = Mathf.Atan2(directionToTarget.y, directionToTarget.x) * Mathf.Rad2Deg;
 
         // Adjust the angle to account for the mosquito's default downward-facing orientation
-        angle += 90f; // Fix: Rotate the mosquito to face the correct direction
+        angle += 90f;
 
         // Apply the rotation
         transform.rotation = Quaternion.Euler(0, 0, angle);
