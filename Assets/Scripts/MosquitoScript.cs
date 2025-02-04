@@ -108,13 +108,13 @@ public class MosquitoScript : MonoBehaviour
         // Check if the mosquito hits the player
         if (col.gameObject.CompareTag("Player"))
         {
-            Debug.Log("Hit player");
+            //Debug.Log("Hit player");
             col.gameObject.GetComponent<Health>().TakeDamage();
             StartCoroutine(FlyAway(col.contacts[0].point));
         }
         else if (col.gameObject.CompareTag("Bubble"))
         {
-            Debug.Log("Mosquito hit");
+            //Debug.Log("Mosquito hit");
             Destroy(this.gameObject);
         }
     }

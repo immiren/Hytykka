@@ -32,11 +32,11 @@ public class PlayerController : MonoBehaviour
         rb2d.velocity = new Vector3(moveHorizontal* speed, moveVertical*speed);
         if ((Input.GetKeyDown(KeyCode.W)) || Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.A))
         {
-            walkAnimation.Play();
+            //walkAnimation.Play();
         }
         else
         {
-            walkAnimation.Stop();
+            //walkAnimation.Stop();
         }
     }
 }
