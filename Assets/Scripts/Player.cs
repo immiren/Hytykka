@@ -13,7 +13,7 @@ public class Player : MonoBehaviour
     [SerializeField] private GameObject bubblePrefab;
     [SerializeField] private Color halfOpaqueColor = new Color(176f, 223f, 255f, 0.5f);
     public float mediumChargeTime = 0.75f;
-    public float largeChargetime = 1.5f;
+    public float largeChargeTime = 1.5f;
 
     void Start()
     {
@@ -74,7 +74,7 @@ public class Player : MonoBehaviour
     private float GetBubbleScale(float chargeTime)
     {
         if (chargeTime < mediumChargeTime) return 0.5f; // Small bubble size
-        if (chargeTime < largeChargetime) return 1.0f; // Medium bubble size
+        if (chargeTime < largeChargeTime) return 1.0f; // Medium bubble size
         else return 2f;                     // Large bubble size
     }
 }
